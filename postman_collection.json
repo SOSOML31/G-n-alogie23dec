@@ -1,0 +1,26 @@
+{
+    "info": {
+      "name": "Genealogy Tests",
+      "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+      {
+        "name": "Create Bob",
+        "request": {
+          "method": "POST",
+          "header": [],
+          "body": {
+            "mode": "raw",
+            "raw": "{\"first_name\": \"Bob\", \"last_name\": \"Lowblow\", \"birth_date\": \"1901-01-01\"}"
+          },
+          "url": {
+            "raw": "http://127.0.0.1:8000/individus/",
+            "protocol": "http",
+            "host": ["127.0.0.1"],
+            "port": "8000",
+            "path": ["individus"]
+          }
+        }
+      }
+    ]
+  }
