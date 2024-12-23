@@ -16,11 +16,6 @@ CREATE TABLE Individu (
     CONSTRAINT unique_individual UNIQUE (first_name, last_name, birth_date)
 );
 
-
-
-
-
-
 CREATE TABLE Relations (
     id SERIAL PRIMARY KEY,
     parent_id INT NOT NULL,
