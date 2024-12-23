@@ -7,14 +7,15 @@ from fastapi.middleware.cors import CORSMiddleware
 from .database import engine, SessionLocal
 from .models import Base
 
-# Initialisation de l'application FastAPI
 app = FastAPI()
 
 from fastapi.middleware.cors import CORSMiddleware
 
+
+# Autoriser toutes les origines
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Autoriser toutes les origines
+    allow_origins=["*"],  
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

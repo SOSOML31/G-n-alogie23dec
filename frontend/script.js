@@ -11,7 +11,11 @@ document.addEventListener("DOMContentLoaded", () => {
             const data = await response.json();
 
             if (response.ok) {
-                treeContainer.innerHTML = JSON.stringify(data, null, 2);
+                if (data.length === 0) {
+                    treeContainer.innerHTML = "<p>Aucun individu dans l'arbre généalogique.</p>";
+                } else {
+                    treeContainer.innerHTML = "<pre>" + JSON.stringify(data, null, 2) + "</pre>";
+                }
             } else {
                 treeContainer.innerHTML = "<p>Erreur lors du chargement de l'arbre généalogique.</p>";
             }
@@ -29,7 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const data = Object.fromEntries(formData);
 
         try {
-            const response = await fetch(`${apiUrl}/ajouter`, {
+            const response = await fetch(`${apiUrl}/individus/`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(data),
@@ -38,11 +42,14 @@ document.addEventListener("DOMContentLoaded", () => {
             if (response.ok) {
                 alert("Individu ajouté avec succès !");
                 loadArbre();
+                event.target.reset();
             } else {
-                alert("Erreur lors de l'ajout de l'individu.");
+                const errorData = await response.json();
+                alert(`Erreur : ${errorData.detail}`);
             }
         } catch (error) {
             console.error(error);
+            alert("Une erreur est survenue lors de l'ajout de l'individu.");
         }
     });
 
@@ -52,9 +59,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const formData = new FormData(event.target);
         const data = Object.fromEntries(formData);
+        const individuId = data.id; // Assurez-vous que le formulaire a un champ `id`
+        delete data.id; // Retirez l'ID du corps de la requête
 
         try {
-            const response = await fetch(`${apiUrl}/modifier/${data.individu_id}`, {
+            const response = await fetch(`${apiUrl}/individus/${individuId}`, {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(data),
@@ -63,11 +72,14 @@ document.addEventListener("DOMContentLoaded", () => {
             if (response.ok) {
                 alert("Individu modifié avec succès !");
                 loadArbre();
+                event.target.reset();
             } else {
-                alert("Erreur lors de la modification.");
+                const errorData = await response.json();
+                alert(`Erreur : ${errorData.detail}`);
             }
         } catch (error) {
             console.error(error);
+            alert("Une erreur est survenue lors de la modification de l'individu.");
         }
     });
 
@@ -78,18 +90,21 @@ document.addEventListener("DOMContentLoaded", () => {
         const individuId = document.getElementById("delete_id").value;
 
         try {
-            const response = await fetch(`${apiUrl}/supprimer/${individuId}`, {
+            const response = await fetch(`${apiUrl}/individus/${individuId}`, {
                 method: "DELETE",
             });
 
             if (response.ok) {
                 alert("Individu supprimé avec succès !");
                 loadArbre();
+                event.target.reset();
             } else {
-                alert("Erreur lors de la suppression.");
+                const errorData = await response.json();
+                alert(`Erreur : ${errorData.detail}`);
             }
         } catch (error) {
             console.error(error);
+            alert("Une erreur est survenue lors de la suppression de l'individu.");
         }
     });
 

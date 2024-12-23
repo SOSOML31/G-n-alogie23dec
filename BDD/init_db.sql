@@ -1,14 +1,11 @@
--- Créer la base de données
+
 CREATE DATABASE genealogie;
 
--- Créer un utilisateur pour gérer la BDD
 CREATE USER genealogie_user WITH PASSWORD 'password123';
 GRANT ALL PRIVILEGES ON DATABASE genealogie TO genealogie_user;
 
--- Se connecter à la base de données
 \c genealogie
 
--- Créer les tables
 CREATE TABLE Individu (
     id SERIAL PRIMARY KEY,
     first_name VARCHAR(100) NOT NULL,

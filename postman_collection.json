@@ -1,26 +1,170 @@
 {
-    "info": {
-      "name": "Genealogy Tests",
-      "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
-    },
-    "item": [
-      {
-        "name": "Create Bob",
-        "request": {
-          "method": "POST",
-          "header": [],
-          "body": {
-            "mode": "raw",
-            "raw": "{\"first_name\": \"Bob\", \"last_name\": \"Lowblow\", \"birth_date\": \"1901-01-01\"}"
-          },
-          "url": {
-            "raw": "http://127.0.0.1:8000/individus/",
-            "protocol": "http",
-            "host": ["127.0.0.1"],
-            "port": "8000",
-            "path": ["individus"]
+  "info": {
+    "name": "tests Généalogie",
+    "description": "Jeu de tests pour la gestion d'arbres généalogiques",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Créer Bob",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
           }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"first_name\": \"Bob\",\n  \"last_name\": \"Lowblow\",\n  \"birth_date\": \"1901-01-01\"\n}"
+        },
+        "url": {
+          "raw": "http://127.0.0.1:8000/individus/",
+          "protocol": "http",
+          "host": ["127.0.0.1"],
+          "port": "8000",
+          "path": ["individus", ""]
         }
       }
-    ]
-  }
+    },
+    {
+      "name": "Ajouter la date de mort de Bob",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"death_date\": \"1999-01-01\"\n}"
+        },
+        "url": {
+          "raw": "http://127.0.0.1:8000/individus/:id_de_Bob",
+          "protocol": "http",
+          "host": ["127.0.0.1"],
+          "port": "8000",
+          "path": ["individus", ":id_de_Bob"]
+        }
+      }
+    },
+    {
+      "name": "Ajouter Marie Lahblah",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"first_name\": \"Marie\",\n  \"last_name\": \"Lahblah\",\n  \"birth_date\": \"1903-10-01\",\n  \"death_date\": \"2012-12-12\"\n}"
+        },
+        "url": {
+          "raw": "http://127.0.0.1:8000/individus/",
+          "protocol": "http",
+          "host": ["127.0.0.1"],
+          "port": "8000",
+          "path": ["individus", ""]
+        }
+      }
+    },
+    {
+      "name": "Ajouter un deuxième nom de famille à Marie",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"last_name\": \"Lahblah-Lowblow\"\n}"
+        },
+        "url": {
+          "raw": "http://127.0.0.1:8000/individus/:id_de_Marie",
+          "protocol": "http",
+          "host": ["127.0.0.1"],
+          "port": "8000",
+          "path": ["individus", ":id_de_Marie"]
+        }
+      }
+    },
+    {
+      "name": "Ajouter Jean-Chrysostome",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"first_name\": \"Jean-Chrysostome\",\n  \"last_name\": \"de Taxi du Poet\",\n  \"birth_date\": \"1911-11-11\"\n}"
+        },
+        "url": {
+          "raw": "http://127.0.0.1:8000/individus/",
+          "protocol": "http",
+          "host": ["127.0.0.1"],
+          "port": "8000",
+          "path": ["individus", ""]
+        }
+      }
+    },
+    {
+      "name": "Ajouter Eude-Edmon, fils de Bob et Marie",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"first_name\": \"Eude-Edmon\",\n  \"last_name\": \"Lowblow\",\n  \"birth_date\": \"1930-12-24\",\n  \"parents\": [\"id_de_Bob\", \"id_de_Marie\"]\n}"
+        },
+        "url": {
+          "raw": "http://127.0.0.1:8000/individus/",
+          "protocol": "http",
+          "host": ["127.0.0.1"],
+          "port": "8000",
+          "path": ["individus", ""]
+        }
+      }
+    },
+    {
+      "name": "Ajouter Marie-Chantal comme prénom à Marie",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"first_name\": \"Marie-Chantal\"\n}"
+        },
+        "url": {
+          "raw": "http://127.0.0.1:8000/individus/:id_de_Marie",
+          "protocol": "http",
+          "host": ["127.0.0.1"],
+          "port": "8000",
+          "path": ["individus", ":id_de_Marie"]
+        }
+      }
+    }
+  ]
+}
